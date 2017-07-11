@@ -1,12 +1,7 @@
 # ADB makefile
 # ------------
 
-#TODO change TOOLCHAIN variable to your toolchain path
-TOOLCHAIN=arm-linux-gnueabihf-
 CC= $(TOOLCHAIN)gcc
-LD= $(TOOLCHAIN)gcc
-CXX=$(CC)
-
 
 SRCS+= adb.c
 SRCS+= fdevent.c
@@ -25,7 +20,6 @@ SRCS+= usb_vendors.c
 SRCS+= adb_auth_host.c
 
 VPATH+= ../libcutils
-SRCS+= list.c
 SRCS+= socket_inaddr_any_server.c
 SRCS+= socket_local_client.c
 SRCS+= socket_local_server.c
@@ -51,18 +45,19 @@ SRCS+= trees.c
 SRCS+= uncompr.c
 SRCS+= zutil.c
 
-CPPFLAGS+= -DADB_HOST=1
-CPPFLAGS+= -DHAVE_FORKEXEC=1
-CPPFLAGS+= -DHAVE_SYMLINKS
-CPPFLAGS+= -DHAVE_TERMIO_H
-CPPFLAGS+= -DHAVE_SYS_SOCKET_H
-CPPFLAGS+= -D_GNU_SOURCE
-CPPFLAGS+= -D_XOPEN_SOURCE
-CPPFLAGS+= -I.
-CPPFLAGS+= -I../include
-CPPFLAGS+= -I../external/zlib
-CPPFLAGS+= -I../external/openssl/include
-CPPFLAGS+= -I../base/include
+CFLAGS+= -DADB_HOST=1
+CFLAGS+= -DHAVE_FORKEXEC=1
+CFLAGS+= -DHAVE_SYMLINKS
+CFLAGS+= -DHAVE_TERMIO_H
+CFLAGS+= -DHAVE_SYS_SOCKET_H
+CFLAGS+= -DHAVE_OFF64_T
+CFLAGS+= -D_GNU_SOURCE
+CFLAGS+= -D_XOPEN_SOURCE
+CFLAGS+= -I.
+CFLAGS+= -I../include
+CFLAGS+= -I../external/zlib
+CFLAGS+= -I../external/openssl/include
+CFLAGS+= -I../base/include
 CFLAGS+= -O2 -g -Wall -Wno-unused-parameter
 
 LIBS= -lcrypto -lpthread -lrt
@@ -72,8 +67,8 @@ OBJS= $(SRCS:.c=.o)
 all: adb
 
 adb: $(OBJS)
-	$(LD) -o $@ $(LDFLAGS) $(OBJS) $(LIBS)
+	$(CC) -o $@ $(CFLAGS) $(OBJS) $(LIBS)
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) adb
 
