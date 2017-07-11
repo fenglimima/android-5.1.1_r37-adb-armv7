@@ -38,7 +38,7 @@ VPATH+= ../libzipfile
 SRCS+= centraldir.c
 SRCS+= zipfile.c
 
-VPATH+= ../../../external/zlib/src
+VPATH+= ../external/zlib/src
 SRCS+= adler32.c
 SRCS+= compress.c
 SRCS+= crc32.c
@@ -58,11 +58,10 @@ CPPFLAGS+= -DHAVE_TERMIO_H
 CPPFLAGS+= -DHAVE_SYS_SOCKET_H
 CPPFLAGS+= -D_GNU_SOURCE
 CPPFLAGS+= -D_XOPEN_SOURCE
-CPPFLAGS+= -std=c++11
 CPPFLAGS+= -I.
 CPPFLAGS+= -I../include
-CPPFLAGS+= -I../../../external/zlib
-CPPFLAGS+= -I../../../external/openssl/include
+CPPFLAGS+= -I../external/zlib
+CPPFLAGS+= -I../external/openssl/include
 CPPFLAGS+= -I../base/include
 CFLAGS+= -O2 -g -Wall -Wno-unused-parameter
 
